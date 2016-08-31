@@ -1,6 +1,5 @@
 ---
 title: 华人实现的语言
-tags: 奇怪的知识 技术
 ---
 
 1. ATS-PL-SYS: Hongwei Xi
