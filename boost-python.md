@@ -1,5 +1,7 @@
 ---
 title: 使用Python作C++游戏的脚本
+tags:
+- 技术
 ---
 
 Boost/python是无缝桥接cpp与python的最好工具。只需“exec某些python文件”，“写入读取python的全局变量”，"将c++类与函数以module形式提供给python"这3个功能就足以实现一个脚本引擎。
