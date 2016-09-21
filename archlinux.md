@@ -16,3 +16,6 @@ Archlinux的安装是手动的，从中能学到一些东西，不过本质上�
 4. fdisk或gdisk /dev/sda就可以进入partition界面，创建partition table。操作相当简单。
 5. lsblk查看bulk device的挂载情况。
 6. fstab配置挂载，locale.conf配置语言。
+
+### 其他
+- 我觉得kde和gnome都不如xfce4，所以装的是xfce。启动图形界面不用startx，用startxfce4。
