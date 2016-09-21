@@ -1,8 +1,7 @@
 ---
 title: 苹果和超市
 tags:
-- 生活
-- 学术
+- secure computing system
 ---
 
 坐而空谈，述而不论。

@@ -1,7 +1,9 @@
 ---
 title: A Frequent-Pattern-Aware Cache Replacement Algorithm
 tags:
-- 学术
+- cache replacement
+- big data
+- microarchitecture
 ---
 
 ### Introduction

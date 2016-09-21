@@ -1,8 +1,7 @@
 ---
 title: 安全计算系统
 tags:
-- 学术
-- 技术
+- secure computing system
 ---
 
 

@@ -1,5 +1,8 @@
 ---
 title: Cache Replacement Competition Framework
+tags:
+- cache replacement
+- microarchitecture
 ---
 
 # Why, What and How
