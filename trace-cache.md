@@ -14,7 +14,7 @@ Trace cache can provide benefits in various aspects but it can also increase pow
 
 - It depends on the general processor design. In P4's case, if you simply replace P4's TC as IC, TC does reduce power consumption. But modern processors have many supplement for IC design, such as a uop cache, which helps the IC design more power efficient.
   - Pros:
-    - TC can store decoded instructions(micro-ops). Therefore upon a TC hit, refetching and decoding power cost is saved. It does well in cases where fetching and decoding is the bottleneck.
+    - TC can store decoded instructions(micro-ops). Therefore upon a TC hit, refetching and decoding power cost is saved. It saves power in cases where fetching and decoding is the bottleneck.
   - Cons:
     - Misprediction is more costly than processors without TC.
     - The decoded micro-ops are much longer than instructions.[2] Therefore TC's size is smaller than IC, implying more I/O latency and power cost.
