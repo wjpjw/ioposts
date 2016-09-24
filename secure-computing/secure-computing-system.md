@@ -3,7 +3,8 @@ title: 安全计算系统
 tags:
 - secure computing system
 ---
-
+文献整理。
+<!--more-->
 
 <!--Week1---->
 # 安全计算系统的基本概念
@@ -15,7 +16,6 @@ tags:
 
 计算安全主要研究的是secrecy，信息不泄露。至于信息的integrity主要是指信息没被修改，实际上在商业软件中更常用，不过没多少研究者感兴趣，还好integrity需要的技术和secrecy差不多。至于denial of service虽然也是信息安全的话题，却不再讨论范围内，原因是软件正确性这一话题太难了，大多数情况下根本实现不了。
 
-<!--more-->
 
 #### 可信系统评价标准
 美国国防部发布橙皮书：Trusted Computer System Evaluation Criteria，定义了安全概念。商用可以很容易通过加装一些addon达到C1或C2。只有军用才会追求A1或B3。

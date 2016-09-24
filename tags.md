@@ -12,4 +12,3 @@ title: 目前使用过的标签
 - cache replacement
 - microarchitecture
 - trace cache
-- news

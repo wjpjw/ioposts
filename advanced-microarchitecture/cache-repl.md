@@ -6,6 +6,11 @@ tags:
 - microarchitecture
 ---
 
+Initial Project Proposal
+
+<!--more-->
+
+
 ### Introduction
 - Project name: FPA(Frequent-Pattern-Aware) Cache Replacement.
 - The simulator is *CMP$IM*.
