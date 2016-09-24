@@ -123,7 +123,7 @@ tcg在pc上失败了，在移动领域被tee抢占风头，物联网也是悲剧
 
 #### 8个基于经验的设计原则：
 - Economy of mechanism： 设计得越小越好！常规使用软件不会用到奇葩或非法路径，所以错误很难自动滚出来，所以这种代码依赖line-by-line inspection和硬件检测，程序越小越方便。
-- Fail-safe defaults：用白名单，不用黑名单，这样名单不全问题不大。
+- Fail-safe defaults：用白名单，不用黑名单，这样名单不全问题不大。创建之初默认不应该给任何用户或程序任何特权。
 - Complete mediation：所有访问都得查，那种记住check结果的思路很可能有问题。
 - Open design：设计不应该成为秘密。安全机制不应该基于潜在攻击者的无知，因为他们说不定哪天就有知了。
 - Separation of privilege：一个需要两个key来unlock的保护机制更加鲁棒也更加灵活。
