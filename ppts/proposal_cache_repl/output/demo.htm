@@ -21,7 +21,7 @@
 <div class="slides">
     <slides id="container">
         <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
-<h1>Prefetching</h1>
+<h1>A Frequent-Pattern-Aware Harware Prefecher</h1>
 <h2>Jipeng Wu</h2>
 
 </article></section></slide>
@@ -30,10 +30,10 @@
 
 </hgroup><article>
 
-<img src="./img/system-dram.png" alt="Bottleneck">
+<img src="./img/system-dram.png" alt="system-dram">
 <ul class="zoomIn">
 <li>SRAM can keep pace with processor memory request rates.</li>
-<li>Bottleneck: Performance gap between DRAM and LLC.</li>
+<li>LLC miss latency continues as a significent bottleneck.</li>
 </ul>
 
 </article></section></slide>
@@ -43,9 +43,140 @@
 </hgroup><article>
 
 <ul class="zoomIn">
-<li>No locality? Caching Policies are Defeated.</li>
-<li>Prefeching: Aggressive design to hide latency.</li>
+<li>A program working on a large array. <ul>
+<li>Caching policies are defeated by such programs with low locality.</li>
 </ul>
+</li>
+<li>A data block in that array is constantly referenced and updated.<ul>
+<li>Such capacity miss can be avoided by fectching before referenced in parallel with processor computation.</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Existing prefechers</h2>
+
+</hgroup><article>
+
+<ul class="zoomIn">
+<li>Access Map Pattern Matching(AMPM): <ul>
+<li>Per cache line structure(untouched, demand accessed, prefetched);</li>
+<li>AMPM only detects strides.</li>
+</ul>
+</li>
+<li>Spatial Memory Streaming(SMS):<ul>
+<li>AGT(Active Generation Table): AGT entries are spatial pattern bitmaps.</li>
+<li>PHT(Pattern History Table): when a AGT entry evicted, it&#39;s placed in PHT.</li>
+<li>The PC+offset of the load instruction are used to look up the PHT. If there is a match, data blocks indicated by PHT entry&#39;s bitmap will be prefeched.</li>
+</ul>
+</li>
+<li>Variable-Length Delta Prefecher(VLDP):<ul>
+<li>VLDP captures variable-length delta patterns rather than fixed-length strides.</li>
+<li>Standalone buffers: Per-page Delta History Buffer, Delta Prediction Tables, Offset Prediction Tables.</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>FPA Goal</h2>
+
+</hgroup><article>
+
+<ul class="zoomIn">
+<li>Detecting more general data patterns.</li>
+<li>Using limited LLC storage budget only and no standalone hardware buffers.</li>
+<li>Choose a proper tradeoff between coverage/traning time/complexity and accuracy based on simulation results.</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>How to track history</h2>
+
+</hgroup><article>
+
+<ul class="zoomIn">
+<li>The Global History Buffer: <ul>
+<li>The GHB is a circular buffer, and each cache miss adds a new entry to the buffer.</li>
+<li>The index table points to the most recent occurrence of PC in global history.</li>
+<li>Therefore GHB can be looked up by PC. But the history length is 1 and this method replies on PC.</li>
+</ul>
+</li>
+<li>AMMP&#39;s Per cache line based history:<ul>
+<li>Each cache line assigned with 2 bits to indicate its state: untouched, demand accessed, prefetched.</li>
+<li>It&#39;s not really a history buffer. It requires a walkthrough of adjacent cache lines</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>How to track history</h2>
+
+</hgroup><article>
+
+<ul class="zoomIn">
+<li>VLDP&#39;s Page-based design:<ul>
+<li>DHB Entry: (i) page number(ii) page offset of the last address accessed in this page, (iii) sequence of up to 4 recently observed deltas, (iv) the DPT level used for the latest delta prediction, (v) the number of times this page has been used, and (vi) 4 recently prefetched offsets.</li>
+</ul>
+</li>
+<li>FPA design: I plan to setup a global history buffer in LLC that tracks fixed-length delata seuqences.</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Delta patterns</h2>
+
+</hgroup><article>
+
+<p class="zoomIn"><span>Since a data access pattern can repeat across different regions of memory, it&#39;s reasonable to combine different address sequences that has the same delta pattern. <span></p>
+<ul>
+<li><p>Address Sequence S1: {A, A+1,A+4,A+3,A-2}</p>
+<p>Address Sequence S2: {B, B-1,B+3,B+1,B-1,B+5}</p>
+<p>Address Sequence S3: {C, C+1,C+4,C+3,C-2}</p>
+</li>
+<li><p>{S1,S2,S3} -&gt; {{0,1,4,3,-2}, {0,-1,3,1,-1,5}}</p>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Frequent Pattern Capture</h2>
+
+</hgroup><article>
+
+<img src="./img/fp-growth.png" alt="fp-growth">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Simulation Environment</h2>
+
+</hgroup><article>
+
+<ul class="zoomIn">
+<li>Simulator: CMPSIM</li>
+<li>3 layer cache model + out-of-order 8-stage pipeline</li>
+<li>Non-inclusive virtual address LLC: 16K cache lines</li>
+<li>Cache line size: 64B</li>
+<li>Reserved bits per cache line: 8 bits</li>
+<li>Storage budget: 16K*8+1K=129K</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Workload and Performance Evaluation</h2>
+
+</hgroup><article>
+
+<ul>
+<li>Single-threaded workload generated by pin tool{:&amp;.zoomIn}</li>
+<li>Comparing FPA with AMPM(Access Map Pattern Matching) and SMS(Spatial Memory Streaming).</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Thanks!</h1>
 
 </article></section></slide>
         
