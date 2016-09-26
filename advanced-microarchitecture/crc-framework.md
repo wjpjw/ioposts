@@ -5,12 +5,14 @@ tags:
 - microarchitecture
 ---
 
+CRC or CMP$IM as simulator. 
+<!--more-->
+
 # Why, What and How
 ### Why CRC?
 - CRC and its trace generator 'pin' are old, but it's hard to find another cmp memory simulator.
 - CRC's user-visible code is well decoupled. It doesn't include any header of simulator or 3rd party libraries. Therefore, there is zero technical obstacle even without decent documentation.
 
-<!--more-->
 
 ### The Simulation Target
 CRC simulates a CMP Memory System:
