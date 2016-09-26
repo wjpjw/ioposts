@@ -26,26 +26,31 @@ usemathjax: no
   * Such capacity miss can be avoided by fectching before referenced in parallel with processor computation.
 
 
-
 [slide]
 ## Existing prefechers
 ----
 * Access Map Pattern Matching(AMPM):  {:&.zoomIn}
-  * Per cache line structure(untouched, demand accessed, prefetched);
+  * Per cache line structure(untouched, demand， accessed, prefetched);
   * AMPM only detects strides.  
 * Spatial Memory Streaming(SMS):
   * AGT(Active Generation Table): AGT entries are spatial pattern bitmaps.
   * PHT(Pattern History Table): when a AGT entry evicted, it's placed in PHT.
   * The PC+offset of the load instruction are used to look up the PHT. If there is a match, data blocks indicated by PHT entry's bitmap will be prefeched.
+
+
+[slide]
+## Existing prefechers
+----
 * Variable-Length Delta Prefecher(VLDP):
   * VLDP captures variable-length delta patterns rather than fixed-length strides.
   * Standalone buffers: Per-page Delta History Buffer, Delta Prediction Tables, Offset Prediction Tables.
+
 
 [slide]
 ## FPA Goal
 ----
 * Detecting more general data patterns. {:&.zoomIn}
-* Using limited LLC storage budget only and no standalone hardware buffers.
+* 129KB Storage Budget for a 1MB LLC.
 * Choose a proper tradeoff between coverage/traning time/complexity and accuracy based on simulation results.
 
 [slide]
@@ -82,9 +87,14 @@ Since a data access pattern can repeat across different regions of memory, it's 
 [slide]
 ## How to elicit better patterns?
 ----
-![fp-growth](/img/fp-growth.png)
 * Fp-growth is a lightweight frequent pattern capture method. Its fp-tree is known as one of the most compact data structure in big data analytics area.
 * It might be still too complicated for hardware prefechers. I need to make a trade-off decision between completeness of pattern capture and the complexity of implementation.
+
+[slide]
+## How to elicit better patterns?
+----
+![fp-tree](/img/fpa.jpg)
+
 
 [slide]
 ## Simulation Environment
