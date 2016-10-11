@@ -6,6 +6,9 @@ tags:
 文献整理。
 <!--more-->
 
+# 作业一
+{% pdf https://drive.google.com/file/d/0Bx7VXO4jC7TUU1piSzhmcFFqTDg/preview %}
+
 <!--Week1---->
 # 安全计算系统的基本概念
 ### What is Computer Security(gassbook-c1)
